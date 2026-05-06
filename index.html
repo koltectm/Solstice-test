@@ -298,7 +298,7 @@ section { position:relative; }
   min-height: 100svh;
   display: flex; align-items: center;
   padding-top: clamp(90px,12vh,120px);
-  padding-bottom: clamp(3rem,8vw,6rem);
+  padding-bottom: clamp(5.5rem,14vw,6rem);
   overflow: hidden;
 }
 
@@ -374,13 +374,12 @@ section { position:relative; }
 /* Main title — word-split stagger */
 .hero-title {
   font-family: var(--ff-display);
-  font-size: clamp(5.5rem,18vw,21rem);
+  font-size: clamp(2.8rem,14vw,21rem);
   font-weight: 800;
   line-height: .88;
   letter-spacing: -.04em;
   color: var(--ink);
   margin-bottom: var(--s5);
-  overflow: hidden;
 }
 .hero-title .word {
   display: inline-block;
@@ -431,22 +430,23 @@ section { position:relative; }
 
 /* Countdown — LED box style */
 .hero-countdown {
-  display:flex; align-items:center; gap:var(--s3);
+  display:flex; align-items:center; gap:clamp(4px,1.5vw,var(--s3));
   margin-bottom: var(--s10);
   opacity:0; animation: fadeInUp .6s ease 1.25s forwards;
+  flex-wrap: nowrap;
 }
 .cd-unit {
   display:flex; flex-direction:column; align-items:center; gap:var(--s1);
 }
 .cd-val {
   font-family: var(--ff-display);
-  font-size: clamp(2rem,5vw,3.8rem);
+  font-size: clamp(1.6rem,5vw,3.8rem);
   font-weight: 800; line-height:1;
   color: var(--ink);
   background: var(--cream-2);
   border: 2px solid var(--border-dk);
   border-radius: var(--r-md);
-  min-width: clamp(58px,9vw,88px);
+  min-width: clamp(52px,9vw,88px);
   text-align: center;
   padding: .35rem .5rem;
   transition: transform .18s ease, color .18s ease;
@@ -497,7 +497,8 @@ section { position:relative; }
   position:absolute; bottom:var(--s8); left:50%; transform:translateX(-50%);
   display:flex; flex-direction:column; align-items:center; gap:var(--s3);
   opacity:0; animation:fadeIn .8s ease 2s forwards;
-  z-index:1;
+  z-index:10;
+  pointer-events:none;
 }
 .hero-scroll span {
   font-family:var(--ff-display); font-size:.44rem; font-weight:600;
@@ -562,6 +563,7 @@ section { position:relative; }
   padding-inline: var(--gutter);
   scroll-snap-type: x mandatory;
   -ms-overflow-style: none; scrollbar-width: none;
+  touch-action: pan-x;
 }
 .lineup-scroll::-webkit-scrollbar { display:none; }
 .lineup-scroll.dragging { cursor:grabbing; }
@@ -977,13 +979,13 @@ footer {
   background:var(--ink);
   padding-block:var(--s16) var(--s10);
   border-top:3px solid var(--orange);
+  text-align: center;
 }
-.footer-top {
-  display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr;
-  gap:var(--s10); margin-bottom:var(--s12);
+.footer-brand {
+  margin-bottom: var(--s10);
 }
 .footer-logo-nm {
-  font-family:var(--ff-display); font-size:1.3rem; font-weight:800;
+  font-family:var(--ff-display); font-size:1.5rem; font-weight:800;
   color:var(--cream); letter-spacing:.02em;
 }
 .footer-logo-nm em { font-style:normal; color:var(--orange); }
@@ -992,7 +994,7 @@ footer {
   margin-top:var(--s2); margin-bottom:var(--s6); line-height:1.7;
 }
 .footer-soc {
-  display:flex; gap:var(--s3);
+  display:flex; gap:var(--s3); justify-content: center;
 }
 .fsoc {
   width:36px; height:36px; border-radius:50%;
@@ -1003,12 +1005,27 @@ footer {
 }
 .fsoc:hover { border-color:var(--orange); color:var(--orange); transform:translateY(-3px); }
 
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(2rem, 6vw, 5rem);
+  flex-wrap: wrap;
+  margin-bottom: var(--s12);
+}
+.footer-col {
+  text-align: center;
+}
 .footer-col-title {
   font-family:var(--ff-display); font-size:.52rem; font-weight:700;
   letter-spacing:.24em; text-transform:uppercase;
-  color:rgba(250,246,238,.35); margin-bottom:var(--s5);
+  color:rgba(250,246,238,.35); margin-bottom:var(--s4);
 }
-.footer-col-links { display:flex; flex-direction:column; gap:var(--s3); }
+.footer-col-links {
+  display:flex; flex-direction:row; flex-wrap:wrap;
+  gap:var(--s2) var(--s5); justify-content: center;
+  max-width: 320px;
+}
 .footer-col-links a {
   font-size:.82rem; color:rgba(250,246,238,.5);
   transition:color var(--t-fast);
@@ -1016,10 +1033,10 @@ footer {
 .footer-col-links a:hover { color:var(--orange); }
 
 .footer-bottom {
-  display:flex; align-items:center; justify-content:space-between;
+  display:flex; align-items:center; justify-content:center;
   flex-wrap:wrap; gap:var(--s4);
   padding-top:var(--s8); border-top:1px solid rgba(250,246,238,.08);
-  font-size:.72rem; color:rgba(250,246,238,.25);
+  font-size:.72rem; color:rgba(250,246,238,.25); text-align:center;
 }
 .footer-bottom a { color:var(--orange); }
 
@@ -1419,7 +1436,6 @@ footer {
    20. RESPONSIVE
 ============================================================ */
 @media (max-width:1024px) {
-  .footer-top { grid-template-columns:1fr 1fr; }
   .info-grid   { grid-template-columns:1fr 1fr; }
   .faq-layout  { grid-template-columns:1fr; }
   .faq-left    { position:static; }
@@ -1441,21 +1457,30 @@ footer {
   .stub-price-curr, .stub-price-note { margin:0; }
   .stub-badge { display:none; }
   .info-grid { grid-template-columns:1fr 1fr; }
-  .footer-top { grid-template-columns:1fr 1fr; }
   .sched-row { grid-template-columns:80px 1fr; grid-template-rows:auto auto; }
   .sched-stage { grid-column:1/-1; justify-self:start; }
   .drawer { width:100vw; }
   .field-row-2 { grid-template-columns:1fr; }
 }
+@media (max-width:540px) {
+  .artist-card {
+    width: calc(100vw - 3.5rem);
+  }
+  .lineup-scroll {
+    scroll-padding-inline-start: var(--gutter);
+  }
+}
 @media (max-width:480px) {
   .hero-chips { gap:var(--s2); }
-  .hero-countdown { gap:var(--s2); }
+  .hero-countdown { gap:6px; }
+  .cd-val { min-width: 50px; font-size: 1.7rem; padding: .25rem .35rem; }
   .cd-colon { display:none; }
-  .footer-top { grid-template-columns:1fr; }
   .tickets-header { flex-direction:column; align-items:flex-start; }
   .tickets-note { text-align:left; }
   .schedule-tabs { gap:var(--s2); }
   .sched-tab { font-size:.5rem; padding:.55rem 1.1rem; }
+  .footer-nav { gap: var(--s8); }
+  .footer-col-links { max-width: 280px; }
 }
   </style>
 </head>
@@ -2159,26 +2184,27 @@ footer {
 ===================================================== -->
 <footer>
   <div class="container">
-    <div class="footer-top">
-      <div>
-        <div class="footer-logo-nm">SOLSTICE<em>FEST</em></div>
-        <p class="footer-logo-tagline">Three Days. One Summer. No Limits.<br>July 18–20, 2026 · Los Angeles</p>
-        <div class="footer-soc">
-          <a href="#" class="fsoc" aria-label="Instagram">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </a>
-          <a href="#" class="fsoc" aria-label="X / Twitter">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          </a>
-          <a href="#" class="fsoc" aria-label="TikTok">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.79a4.85 4.85 0 01-1.01-.1z"/></svg>
-          </a>
-          <a href="#" class="fsoc" aria-label="Spotify">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-          </a>
-        </div>
+    <div class="footer-brand">
+      <div class="footer-logo-nm">SOLSTICE<em>FEST</em></div>
+      <p class="footer-logo-tagline">Three Days. One Summer. No Limits.<br>July 18–20, 2026 · Los Angeles</p>
+      <div class="footer-soc">
+        <a href="#" class="fsoc" aria-label="Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="#" class="fsoc" aria-label="X / Twitter">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="#" class="fsoc" aria-label="TikTok">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.79a4.85 4.85 0 01-1.01-.1z"/></svg>
+        </a>
+        <a href="#" class="fsoc" aria-label="Spotify">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+        </a>
       </div>
-      <div>
+    </div>
+
+    <div class="footer-nav">
+      <div class="footer-col">
         <div class="footer-col-title">Tickets</div>
         <div class="footer-col-links">
           <a href="#tickets">Friday Day Pass</a>
@@ -2188,7 +2214,7 @@ footer {
           <a href="#tickets">Group Bookings</a>
         </div>
       </div>
-      <div>
+      <div class="footer-col">
         <div class="footer-col-title">Festival</div>
         <div class="footer-col-links">
           <a href="#lineup">Lineup</a>
@@ -2198,7 +2224,7 @@ footer {
           <a href="#">Accessibility</a>
         </div>
       </div>
-      <div>
+      <div class="footer-col">
         <div class="footer-col-title">Info</div>
         <div class="footer-col-links">
           <a href="#faq">FAQ</a>
@@ -2209,6 +2235,7 @@ footer {
         </div>
       </div>
     </div>
+
     <div class="footer-bottom">
       <p>© 2026 Solstice Festival Ltd. All rights reserved.</p>
       <p>Tickets are non-refundable. <a href="#">Terms apply.</a></p>
