@@ -374,7 +374,7 @@ section { position:relative; }
 /* Main title — word-split stagger */
 .hero-title {
   font-family: var(--ff-display);
-  font-size: clamp(2.8rem,14vw,21rem);
+  font-size: clamp(2rem, 14vw, 21rem);
   font-weight: 800;
   line-height: .88;
   letter-spacing: -.04em;
@@ -399,6 +399,12 @@ section { position:relative; }
 }
 @media (max-width:600px) {
   .hero-title .stroke { -webkit-text-stroke:2px var(--orange); }
+}
+/* ── Mobile: Syne 800 is very wide — size down so SOLSTICE doesn't overflow ── */
+@media (max-width:540px) {
+  .hero-title {
+    font-size: clamp(1.6rem, 10.5vw, 2.45rem);
+  }
 }
 
 .hero-tagline {
@@ -1463,11 +1469,21 @@ footer {
   .field-row-2 { grid-template-columns:1fr; }
 }
 @media (max-width:540px) {
-  .artist-card {
-    width: calc(100vw - 3.5rem);
-  }
+  /* Remove negative-margin stretch so card width math is predictable */
   .lineup-scroll {
-    scroll-padding-inline-start: var(--gutter);
+    margin-inline: 0;
+    padding-inline: 0;
+    scroll-padding-inline-start: var(--s5);
+  }
+  /* Give track inner breathing room instead */
+  .lineup-track {
+    padding-inline: var(--s5);
+    gap: var(--s4);
+  }
+  /* One card fills the viewport minus padding, snaps cleanly */
+  .artist-card {
+    width: calc(100vw - var(--s10)); /* 375px − 40px = 335px at 375 vp */
+    scroll-snap-align: start;
   }
 }
 @media (max-width:480px) {
